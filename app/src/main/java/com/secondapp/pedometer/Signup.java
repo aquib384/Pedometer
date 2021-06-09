@@ -87,18 +87,18 @@ public class Signup extends AppCompatActivity {
             if (selectedId==-1)  Toast.makeText(this,"Select Gender",Toast.LENGTH_SHORT).show();
             radioButton=findViewById(selectedId);
             String gender=radioButton.getText().toString();
-            int age= Integer.parseInt(ages.getText().toString());
-            float height= Integer.parseInt(heigh.getText().toString());
-            float weight= Integer.parseInt(weigh.getText().toString());
+            String age= ages.getText().toString();
+            String height= heigh.getText().toString();
+            String weight= weigh.getText().toString();
 
             SharedPreferences.Editor editor=preferences.edit();
             editor.putString(NAME,name);
-            editor.putInt(AGE,age);
+            editor.putString(AGE,age);
             editor.putString(SEX,gender);
-            editor.putFloat(HEIGHT,height);
-            editor.putFloat(WEIGHT,weight);
+            editor.putString(HEIGHT,height);
+            editor.putString(WEIGHT,weight);
             editor.putBoolean("signedup", Boolean.parseBoolean("true"));
-            editor.commit();
+            editor.apply();
             Toast.makeText(this,"Data saved",Toast.LENGTH_SHORT).show();
             Intent intent =new Intent(Signup.this,MainActivity.class);
             startActivity(intent);
