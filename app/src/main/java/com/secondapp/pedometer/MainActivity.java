@@ -2,11 +2,14 @@ package com.secondapp.pedometer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +17,7 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, StepListener{
-    private TextView TvSteps;
+    private TextView TvSteps,name;
     private TextView calories;
     private StepDetector simpleStepDetector;
     private SensorManager sensorManager;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
     private double calBurn;
+    Signup signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +41,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         TvSteps =  findViewById(R.id.tv_steps);
         BtnStart = findViewById(R.id.btn_start);
+        name=findViewById(R.id.name);
         BtnReset =  findViewById(R.id.btn_stop);
         calories=findViewById(R.id.cal);
+
+        signup=new Signup();
 
 
 
@@ -49,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 numSteps = 0;
                 sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+
+
 
 
             }
@@ -70,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     }
+
 
 
 

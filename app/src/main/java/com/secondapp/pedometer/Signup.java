@@ -50,21 +50,23 @@ public class Signup extends AppCompatActivity {
     File dir;
 
 
-  
+
 
     //shared pref;
 
-    public static final String MyPREFERENCES = "MyData" ;
+
+    SessionManager manager;
     public static final String NAME = "name";
     public static final String AGE = "age";
     public static final String SEX = "sex";
     public static final String HEIGHT = "height";
     public static final String WEIGHT = "height";
     public static final String IMAGE_PATH = "image";
+    public static final String SINGED_UP= "signed";
 
 
 
-    SharedPreferences preferences;
+
 
 
 
@@ -82,14 +84,16 @@ public class Signup extends AppCompatActivity {
         weigh=findViewById(R.id.weight);
         signup=findViewById(R.id.signup);
         upload=findViewById(R.id.upload);
-
-        preferences=getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        //initialization;
-        if (isSignedUp()){
-            Intent intent =new Intent(Signup.this,MainActivity.class);
+        manager=new SessionManager(getApplicationContext());
+        if (manager.isLoggedIn()){
+            Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
             finish();
         }
+
+
+
+        //initialization;
 
 
 
@@ -117,36 +121,32 @@ public class Signup extends AppCompatActivity {
         check();
 
 
-        String name=firstName.getText().toString()+" "+lastName.getText().toString();
+            String name=firstName.getText().toString()+" "+lastName.getText().toString();
 
             int selectedId=radioGroup.getCheckedRadioButtonId();
             if (selectedId==-1)  Toast.makeText(this,"Select Gender",Toast.LENGTH_SHORT).show();
             radioButton=findViewById(selectedId);
-            String gender=radioButton.getText().toString();
-            String age= ages.getText().toString();
-            String height= heigh.getText().toString();
-            String weight= weigh.getText().toString();
+            try {
 
-            SharedPreferences.Editor editor=preferences.edit();
-            editor.putString(NAME,name);
-            editor.putString(AGE,age);
-            editor.putString(SEX,gender);
-            editor.putString(HEIGHT,height);
-            editor.putString(WEIGHT,weight);
-            editor.putString(IMAGE_PATH,imagePath);
-            editor.putBoolean("signedup", Boolean.parseBoolean("true"));
-            editor.apply();
-            Toast.makeText(this,"Data saved",Toast.LENGTH_SHORT).show();
-            Intent intent =new Intent(Signup.this,MainActivity.class);
-            startActivity(intent);
+                String gender=radioButton.getText().toString();
+                String age= ages.getText().toString();
+                String height= heigh.getText().toString();
+                String weight= weigh.getText().toString();
 
-    }
-    public boolean isSignedUp(){
-        boolean signedin=preferences.getBoolean("signedup", Boolean.parseBoolean("false"));
+                manager.createLoginSession(name,age,gender,height,weight,imagePath);
+                Intent intent=new Intent(this,MainActivity.class);
+                startActivity(intent);
 
-        return signedin;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+
 
     }
+
 
     public void onUpload(View view){
         selectImage(this);
@@ -257,6 +257,7 @@ public class Signup extends AppCompatActivity {
             }
         }
     }
+
 
 
 }
