@@ -30,6 +30,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
@@ -43,38 +44,23 @@ public class Signup extends AppCompatActivity {
     private RadioButton radioButton;
     private Button signup,upload;
 
+    //for image path from camera
     File mediaFile;
     String imagePath = "";
     private Uri fileUri;
     public File f;
     File dir;
 
-
-
-
     //shared pref;
 
 
     SessionManager manager;
-    public static final String NAME = "name";
-    public static final String AGE = "age";
-    public static final String SEX = "sex";
-    public static final String HEIGHT = "height";
-    public static final String WEIGHT = "height";
-    public static final String IMAGE_PATH = "image";
-    public static final String SINGED_UP= "signed";
-
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         firstName=findViewById(R.id.firstname);
         lastName=findViewById(R.id.lastname);
@@ -86,7 +72,7 @@ public class Signup extends AppCompatActivity {
         upload=findViewById(R.id.upload);
         manager=new SessionManager(getApplicationContext());
         if (manager.isLoggedIn()){
-            Intent intent=new Intent(this,MainActivity.class);
+            Intent intent=new Intent(Signup.this,MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -117,8 +103,8 @@ public class Signup extends AppCompatActivity {
 
 
     }
-    public void onClick(View view){
-        check();
+    public void onSignUp(View view){
+            check();
 
 
             String name=firstName.getText().toString()+" "+lastName.getText().toString();
@@ -136,6 +122,7 @@ public class Signup extends AppCompatActivity {
                 manager.createLoginSession(name,age,gender,height,weight,imagePath);
                 Intent intent=new Intent(this,MainActivity.class);
                 startActivity(intent);
+                finish();
 
             } catch (Exception e) {
                 e.printStackTrace();

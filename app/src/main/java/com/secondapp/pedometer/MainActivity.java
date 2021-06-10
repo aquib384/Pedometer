@@ -15,9 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, StepListener{
-    private TextView TvSteps,name;
+    private TextView TvSteps,names;
     private TextView calories;
     private StepDetector simpleStepDetector;
     private SensorManager sensorManager;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int numSteps;
     private double calBurn;
     Signup signup;
+    SessionManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         TvSteps =  findViewById(R.id.tv_steps);
         BtnStart = findViewById(R.id.btn_start);
-        name=findViewById(R.id.name);
+        names=findViewById(R.id.name);
         BtnReset =  findViewById(R.id.btn_stop);
         calories=findViewById(R.id.cal);
 
-        signup=new Signup();
+        manager=new SessionManager(getApplicationContext());
+        if (manager.isLoggedIn()){
+            HashMap<String, String> user=manager.getUserDetails();
+            String name=user.get(SessionManager.NAME);
+            names.setText(name);
+        }
 
 
 
@@ -56,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 numSteps = 0;
                 sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+
+
 
 
 
