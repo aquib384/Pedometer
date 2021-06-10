@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
     private double calBurn;
-    Signup signup;
-    SessionManager manager;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +45,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         names=findViewById(R.id.name);
         BtnReset =  findViewById(R.id.btn_stop);
         calories=findViewById(R.id.cal);
-
-        manager=new SessionManager(getApplicationContext());
-        if (manager.isLoggedIn()){
-            HashMap<String, String> user=manager.getUserDetails();
+        sessionManager=new SessionManager(getApplicationContext());
+        if (sessionManager.isLoggedIn()){
+            HashMap<String, String> user=sessionManager.getUserDetails();
             String name=user.get(SessionManager.NAME);
             names.setText(name);
         }

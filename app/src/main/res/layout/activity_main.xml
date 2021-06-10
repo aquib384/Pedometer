@@ -3,27 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Name"
         android:id="@+id/name"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        tools:ignore="HardcodedText" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Steps count:"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        tools:ignore="HardcodedText" />
 
 
 
@@ -35,7 +34,7 @@
         android:fontFamily="sans-serif"
         android:layout_height="wrap_content"
         android:gravity="center"
-        />
+        tools:ignore="HardcodedText" />
 
 
     <Button
@@ -45,7 +44,7 @@
         android:layout_marginTop="50dp"
         android:textStyle="bold"
         android:text="Start Pedometer"
-        />
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_stop"
@@ -53,14 +52,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
-        android:text="Reset Pedometer"/>
+        android:text="Reset Pedometer"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Calories burn:"
         android:layout_marginTop="50dp"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,7 +69,8 @@
         android:hint="0"
         android:id="@+id/cal"
         android:layout_marginTop="50dp"
-        android:textSize="50sp"/>
+        android:textSize="50sp"
+        tools:ignore="HardcodedText" />
 
 
 
@@ -82,5 +84,3 @@
 
 
 
-
-</LinearLayout>

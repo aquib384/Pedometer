@@ -1,7 +1,7 @@
 package com.secondapp.pedometer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import java.util.HashMap;
@@ -22,6 +22,7 @@ public class SessionManager {
     public static final String IS_LOGIN = "isLogin";
 
 
+    @SuppressLint("CommitPrefEdits")
     public SessionManager(Context _context) {
         this._context = _context;
         pref=_context.getSharedPreferences(PREF_NAME,PRIVATE_MODE);
@@ -39,6 +40,7 @@ public class SessionManager {
         // commit changes
         editor.commit();
     }
+
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);
     }
@@ -46,9 +48,9 @@ public class SessionManager {
 
     /**
      * Get stored session data
-     * */
+     **/
     public HashMap<String, String> getUserDetails(){
-        HashMap<String, String> user = new HashMap<String, String>();
+        HashMap<String, String> user = new HashMap<>();
 
         user.put(NAME, pref.getString(NAME, null));
         user.put(AGE, pref.getString(AGE, null));
