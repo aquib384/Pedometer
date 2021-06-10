@@ -36,8 +36,7 @@ import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 public class Signup extends AppCompatActivity {
 
 
-    private static final String IMAGEPATH = "";
-    private static final String IMAGESYNC = "";
+
     private static final String IMAGE_DIRECTORY_NAME = "Customer";
     EditText firstName,lastName,ages,heigh,weigh;
     private RadioGroup radioGroup;
@@ -51,7 +50,7 @@ public class Signup extends AppCompatActivity {
     File dir;
 
 
-    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+  
 
     //shared pref;
 
