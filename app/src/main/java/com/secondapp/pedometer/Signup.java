@@ -5,20 +5,26 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -27,6 +33,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import static android.os.Environment.getExternalStorageDirectory;
+import static com.secondapp.pedometer.R.id.*;
 
 public class Signup extends AppCompatActivity {
 
@@ -43,6 +50,8 @@ public class Signup extends AppCompatActivity {
     public File f;
     File dir;
 
+    TextView camera,gallery,cancel;
+
     //shared pref;
 
 
@@ -56,10 +65,10 @@ public class Signup extends AppCompatActivity {
 
         firstName=findViewById(R.id.firstName);
         lastName=findViewById(R.id.lastName);
-        radioGroup=findViewById(R.id.radio);
-        ages=findViewById(R.id.age);
-        heigh=findViewById(R.id.height);
-        weigh=findViewById(R.id.weight);
+        radioGroup=findViewById(radio);
+        ages=findViewById(age);
+        heigh=findViewById(height);
+        weigh=findViewById(weight);
         sessionManager = new SessionManager(getApplicationContext());
         /**
          * checking login status
@@ -119,36 +128,51 @@ public class Signup extends AppCompatActivity {
 
     }
 
+
     private void selectImage(Context context) {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, viewGroup, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCancelable(true);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Choose your profile picture");
+        camera=dialogView.findViewById(R.id.camera);
+        gallery=dialogView.findViewById(R.id.gallery);
+        cancel=dialogView.findViewById(R.id.cancel);
 
-        builder.setItems(options, (dialog, item) -> {
+      camera.setOnClickListener(v -> {
+          alertDialog.dismiss();
+          Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+          if (Build.VERSION.SDK_INT > 20) {
+              File file = getCameraFile();
+              imagePath = file.getPath();
+              fileUri = FileProvider.getUriForFile(Signup.this, getApplicationContext().getPackageName() + ".provider", file);
+          } else {
+              fileUri = Uri.fromFile(getOutputMediaFile());
+          }
 
-            if (options[item].equals("Take Photo")) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (Build.VERSION.SDK_INT > 20) {
-                    File file = getCameraFile();
-                    imagePath = file.getPath();
-                    fileUri = FileProvider.getUriForFile(Signup.this, getApplicationContext().getPackageName() + ".provider", file);
-                } else {
-                    fileUri = Uri.fromFile(getOutputMediaFile());
-                }
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                startActivityForResult(intent, 0);
 
-            } else if (options[item].equals("Choose from Gallery")) {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , 1);
+          intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+          intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+          startActivityForResult(intent, 0);
 
-            } else if (options[item].equals("Cancel")) {
-                dialog.dismiss();
-            }
+      });
+
+        gallery.setOnClickListener(v -> {
+            alertDialog.dismiss();
+            Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(pickPhoto , 1);
+
         });
-        builder.show();
+
+        cancel.setOnClickListener(v -> {
+
+            alertDialog.dismiss();
+        });
+        //
     }
 
 
@@ -180,6 +204,7 @@ public class Signup extends AppCompatActivity {
         return mediaFile;
         //return mediaStorageDir;
     }
+
 
 
     @Override

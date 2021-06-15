@@ -3,4 +3,14 @@
     <string name="signup">Signup</string>
     <string name="female">Female</string>
     <string name="male">Male</string>
+    <string name="cancel">Cancel</string>
+    <string name="todo">TODO</string>
+    <string name="choose_from_gallery">Choose from gallery</string>
+    <string name="take_picture">Take Picture</string>
+
+    <style name="CircularDeterminateProgressBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progressbar</item>
+    </style>
+
 </resources>

@@ -6,27 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Signup">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@drawable/steps"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/steps"
+        app:layout_constraintVertical_bias="0.144"
         tools:ignore="ContentDescription" />
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="397dp"
+        android:layout_width="match_parent"
         android:layout_height="524dp"
-        android:layout_marginBottom="72dp"
+        android:layout_margin="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.64"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -54,14 +57,14 @@
                 android:id="@+id/firstName"
                 android:layout_width="154dp"
                 android:layout_height="27dp"
-                android:background="@drawable/box"
-                android:textSize="18sp"
                 android:autofillHints="First Name"
+                android:background="@drawable/box"
                 android:gravity="start"
+                android:inputType="text"
                 android:padding="4dp"
+                android:textSize="18sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/lastName"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                android:inputType="text"
                 tools:ignore="LabelFor" />
 
             <EditText
@@ -69,17 +72,17 @@
                 android:layout_width="154dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/box"
-                android:textSize="18sp"
-                android:gravity="start"
                 android:autofillHints="Last Name"
+                android:background="@drawable/box"
+                android:gravity="start"
+                android:inputType="text"
                 android:padding="4dp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/firstName"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                tools:ignore="LabelFor"
-                android:inputType="text" />
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -165,13 +168,13 @@
                 android:layout_width="154dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="4dp"
+                android:autofillHints="Age"
                 android:background="@drawable/box"
                 android:ems="10"
-                android:autofillHints="Age"
-                android:inputType="number"
-                android:textSize="18sp"
                 android:gravity="start"
+                android:inputType="number"
                 android:padding="4dp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -196,17 +199,17 @@
                 android:layout_width="154dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="4dp"
+                android:autofillHints="Height"
                 android:background="@drawable/box"
                 android:ems="10"
-                android:textSize="18sp"
                 android:gravity="start"
-                android:padding="4dp"
                 android:inputType="numberDecimal"
+                android:padding="4dp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
-                android:autofillHints="Height"
                 tools:ignore="LabelFor" />
 
             <TextView
@@ -227,13 +230,13 @@
                 android:layout_width="154dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="4dp"
+                android:autofillHints="Weight"
                 android:background="@drawable/box"
                 android:ems="10"
-                android:autofillHints="Weight"
-                android:textSize="18sp"
                 android:gravity="left"
-                android:padding="4dp"
                 android:inputType="numberDecimal"
+                android:padding="4dp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
@@ -245,8 +248,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="28dp"
-                android:text="upload image"
                 android:onClick="onUpload"
+                android:text="upload image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.793"
